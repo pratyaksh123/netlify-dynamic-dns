@@ -26,15 +26,15 @@ NETLIFY_DNS_ZONE_ID=your_netlify_dns_zone_id_here
 ## Running the Project
 #### To build and run the project using Docker, follow these steps:
 ```
-docker build -t  netlify-dns .
-docker run -d netlify-dns
+docker build -t  netlify-ddns .
+docker run -d netlify-ddns
 ```
 
 ### Set Up Cron Job for Every 5 Minutes
 Add a new line to your crontab to run the Docker container every 5 minutes:
 
 ```bash
-*/5 * * * * /usr/bin/docker run netlify-dns >> /var/log/your-container.log 2>&1
+*/5 * * * * /usr/bin/docker run netlify-ddns >> /var/log/your-container.log 2>&1
 ```
 
 ### Clear Logs Every 24 Hours
