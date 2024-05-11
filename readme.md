@@ -29,3 +29,16 @@ NETLIFY_DNS_ZONE_ID=your_netlify_dns_zone_id_here
 docker build -t  netlify-dns .
 docker run -d netlify-dns
 ```
+
+### Set Up Cron Job for Every 5 Minutes
+Add a new line to your crontab to run the Docker container every 5 minutes:
+
+```bash
+*/5 * * * * /usr/bin/docker run netlify-dns >> /var/log/your-container.log 2>&1
+```
+
+### Clear Logs Every 24 Hours
+You can add a cron job to clear the log file every 24 hours at midnight:
+```
+0 0 * * * /bin/truncate -s 0 /var/log/your-container.log
+```
