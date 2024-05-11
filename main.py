@@ -22,8 +22,9 @@ def get_external_ip():
         return None
 
 def get_dns_zones():
-    response = requests.get("https://api.netlify.com/api/v1/dns_zones")
+    url = "https://api.netlify.com/api/v1/dns_zones"
     headers = {'Authorization': f'Bearer {NETLIFY_AUTH_TOKEN}'}
+    response = requests.get(url, headers=headers)
     if response.status_code == 200:
         return response.json()
     else:
