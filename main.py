@@ -71,17 +71,18 @@ def create_dns_record(hostname, value):
         logging.error("Failed to create DNS record")
         return False
 
-desired_ip = get_external_ip()
-if desired_ip:
-    records = get_dns_records()
-    if records:
-        for record in records:
-            if record['hostname'] == "vpn.pratyaksh.me" and record['type'] == "A":
-                if record['value'] != desired_ip:
-                    logging.info("DNS record needs update.")
-                    if delete_dns_record(record['id']):
-                        create_dns_record("vpn.pratyaksh.me", desired_ip)
-                else:
-                    logging.info("No update needed, DNS record is correct")
-else:
-    logging.error("Could not obtain the external IP")
+if __name__ == "__main__":
+    desired_ip = get_external_ip()
+    if desired_ip:
+        records = get_dns_records()
+        if records:
+            for record in records:
+                if record['hostname'] == "vpn.pratyaksh.me" and record['type'] == "A":
+                    if record['value'] != desired_ip:
+                        logging.info("DNS record needs update.")
+                        if delete_dns_record(record['id']):
+                            create_dns_record("vpn.pratyaksh.me", desired_ip)
+                    else:
+                        logging.info("No update needed, DNS record is correct")
+    else:
+        logging.error("Could not obtain the external IP")
