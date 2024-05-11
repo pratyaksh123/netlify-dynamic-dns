@@ -18,7 +18,7 @@ def get_external_ip():
     if response.status_code == 200:
         return response.text.strip()
     else:
-        logging.error("Failed to fetch external IP")
+        logging.error(f"Failed to fetch external IP: {response.status_code}, {response.text}")
         return None
 
 def get_dns_zones():
@@ -28,7 +28,7 @@ def get_dns_zones():
     if response.status_code == 200:
         return response.json()
     else:
-        logging.error("Failed to fetch DNS zones")
+        logging.error(f"Failed to fetch DNS zones: {response.status_code}, {response.text}")
         return None
 
 def get_dns_records():
@@ -38,7 +38,7 @@ def get_dns_records():
     if response.status_code == 200:
         return response.json()
     else:
-        logging.error("Failed to fetch DNS records")
+        logging.error(f"Failed to fetch DNS records: {response.status_code}, {response.text}")
         return None
 
 def delete_dns_record(record_id):
@@ -49,7 +49,7 @@ def delete_dns_record(record_id):
         logging.info("DNS record deleted successfully")
         return True
     else:
-        logging.error("Failed to delete DNS record")
+        logging.error(f"Failed to delete DNS record: {response.status_code}, {response.text}")
         return False
 
 def create_dns_record(hostname, value):
@@ -69,7 +69,7 @@ def create_dns_record(hostname, value):
         logging.info("DNS record created successfully")
         return True
     else:
-        logging.error("Failed to create DNS record")
+        logging.error(f"Failed to create DNS record: {response.status_code}, {response.text}")
         return False
 
 if __name__ == "__main__":
@@ -80,7 +80,7 @@ if __name__ == "__main__":
             for record in records:
                 if record['hostname'] == "vpn.pratyaksh.me" and record['type'] == "A":
                     if record['value'] != desired_ip:
-                        logging.info("DNS record needs update.")
+                        logging.info(f"DNS record needs update: Current IP {record['value']} vs External IP {desired_ip}")
                         if delete_dns_record(record['id']):
                             create_dns_record("vpn.pratyaksh.me", desired_ip)
                     else:
