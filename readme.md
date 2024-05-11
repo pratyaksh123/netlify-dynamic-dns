@@ -8,7 +8,7 @@ Clone the repository to your local machine:
 
 ```bash
 git clone https://github.com/pratyaksh123/netlify-dynamic-dns.git
-cd netlify-ddns
+cd netlify-dynamic-dns
 
 # .env file
 NETLIFY_AUTH_TOKEN=your_netlify_auth_token_here
